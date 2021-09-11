@@ -9,8 +9,6 @@ public class MainTest {
     @Test
     public void test() {
 
-        // Test something here (optional)
-
         assertTrue(true);
 
         System.out.println("Testing");

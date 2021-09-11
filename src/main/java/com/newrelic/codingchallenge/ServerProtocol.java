@@ -1,19 +1,22 @@
 package com.newrelic.codingchallenge;
 
+import com.newrelic.codingchallenge.Log.FileHandler;
+import com.newrelic.codingchallenge.Model.Message;
+
 import java.io.*;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class ServerProtocol {
 
-    public void processInput(String theInput) {
+    FileHandler fileHandler = FileHandler.getInstance();
 
-        try(BufferedWriter bw = new BufferedWriter(new FileWriter("numbers.log", true))) {
-            bw.write(theInput);
-            bw.newLine();
+    public void processInput(Message message) {
 
+        try(BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(fileHandler.getFilename(), true))) {
+            String newLine = message.getNumber()+"\n";
+            byte[] arr = newLine.getBytes();
+            bos.write(arr);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 }
