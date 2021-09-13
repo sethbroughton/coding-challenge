@@ -8,7 +8,7 @@ public class Cache {
     private static Cache instance = null;
 
     private Cache() {
-        nonDuplicateSet = new ConcurrentHashMap();
+        nonDuplicateSet = new ConcurrentHashMap<>();
     }
 
     public static Cache getInstance() {
@@ -19,6 +19,10 @@ public class Cache {
     }
 
     public boolean add(String number) {
+
+        if(number== null || number.isEmpty()) {
+            return false;
+        }
         return nonDuplicateSet.putIfAbsent(number, true)==null;
     }
 }
