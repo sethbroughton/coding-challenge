@@ -11,8 +11,8 @@ import java.util.concurrent.TimeUnit;
 public class Main {
     public static void main(String[] args) {
 
-        final int portNumber = 4000;
-        final int maxServerConnections = 5;
+        final int PORT_NUMBER = 4000;
+        final int MAX_CONNECTIONS = 5;
 
         boolean notTerminated = true;
 
@@ -29,15 +29,14 @@ public class Main {
         ScheduledExecutorService reportThread = Executors.newScheduledThreadPool(1);
         reportThread.scheduleAtFixedRate(report, 0, 10, TimeUnit.SECONDS);
 
-        try (ServerSocket serverSocket = new ServerSocket(portNumber, maxServerConnections)) {
+        try (ServerSocket serverSocket = new ServerSocket(PORT_NUMBER, MAX_CONNECTIONS)) {
             System.out.println("Starting server...");
 
             while (notTerminated) {
                 new ServerThread(serverSocket.accept(), fileLogger, cache).start();
-
             }
         } catch (IOException ioe) {
-            System.err.println("Could not listen on port " + portNumber);
+            System.err.println("Could not listen on port " + PORT_NUMBER);
             System.exit(1);
         }
     }

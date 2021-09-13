@@ -30,5 +30,4 @@ public class Message {
         return this.isTerminate;
     }
 
-
 }
